@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Created Successfully</title>
+
+    <style type="text/css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            padding: 1rem 2rem;
+            vertical-align: top;
+            width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            text-align: left;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .header-logo {
+            background-color: rgb(153, 27, 27);
+            text-align: center;
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .header-logo h2 {
+            margin: 0;
+        }
+
+        .content {
+            padding: 40px;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            margin: 1rem 0;
+            color: #333333;
+        }
+
+        strong {
+            font-size: 110%;
+            color: #555555;
+        }
+
+        .otp {
+            font-size: 24px;
+            color: #007bff;
+            margin: 0;
+        }
+
+        .info-message {
+            color: #555555;
+            font-size: 17px;
+        }
+
+        .footer {
+            padding: 10px;
+            color: #999999;
+            text-align: center;
+            background-color: #f8f8f8;
+            border-radius: 0 0 12px 12px;
+            font-size: 18px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 17px;
+        }
+
+        .item img {
+            margin-left: 20px;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-details p {
+            margin: 0;
+        }
+
+        .item-details .quantity {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table class="container">
+        <tr>
+            <td class="header-logo">
+                <h2>Hot House Northwood Pizza</h2>
+            </td>
+        </tr>
+        <tr>
+            <td class="content">
+                <div style="color: #333333; text-align: left;">
+                    <h2 style="color:green">Hi! <%= name %>, Your Order is Accepted.</h2>
+                    <p class="info-message">
+                        Thank you for placing an order with Hot House Northwood Pizza. We are pleased to confirm that we have received your order number
+                        <strong style="color:rgb(153, 27, 27)"><%= orderId %></strong> with a total amount of 
+                        <strong style="color:rgb(153, 27, 27)">£ <%= amount %></strong>, placed for 
+                        <strong style="color:rgb(153, 27, 27)"><%= date %></strong>.
+                    </p>
+                    <p class="info-message">
+                        Order Type: 
+                        <strong style="color:rgb(153, 27, 27)">
+                            <%= orderType.charAt(0).toUpperCase() + orderType.slice(1).toLowerCase() %>
+                        </strong>
+                    </p>
+                    <p class="info-message">Payment Mode: <strong style="color:green"><%= paymentType %></strong></p>
+
+                    <!-- Address Section -->
+                    <p class="info-message">
+                        Address: 
+                        <% if (address) { %>
+                            <strong><%= address %></strong>
+                        <% } else { %>
+                            <strong style="color:gray;">No Address – Collection</strong>
+                        <% } %>
+                    </p>
+
+                    <!-- Mobile Number Section -->
+                    <p class="info-message">
+                        Mobile Number: 
+                        <strong><%= mobileNumber %></strong>
+                    </p>
+
+                    <!-- Comment Section -->
+                    <p class="info-message">
+                        Comment: 
+                        <% if (comment) { %>
+                            <strong><%= comment %></strong>
+                        <% } else { %>
+                            <strong style="color:gray;">No Comment</strong>
+                        <% } %>
+                    </p>
+
+                    <!-- Ordered Items Section -->
+                    <p class="info-message">Ordered Items:</p>
+                    <p class="info-message">
+                        <% items.forEach(function(item) { 
+                            const size = String(item?.size).includes("-");
+                            const price = String(item?.size).includes("-")
+                                ? item?.size?.split("-")
+                                : item?.size;  
+                        %> 
+                            <div class="item">
+                                <div class="item-details">
+                                    <strong style="color:green"><%= item.name %></strong>
+                                    <% if (item?.allToppings){ %>
+                                        <strong style="font-size: 15px; color:rgb(153, 27, 27)">Customized</strong>
+                                    <% } %>
+                                    <% if (size) { %>
+                                        <p class="quantity">Size/Type: <%= price[0] %></p>
+                                    <% } else if (item?.dealsData) { %>
+                                        <p class="quantity">Size: <%= item?.size %></p>
+                                    <% } else if (item?.allToppings?.size?.name) { %>
+                                        <p class="quantity">Size: <%= item?.allToppings?.size?.name %></p>
+                                    <% } %>
+                                    <p class="quantity">Quantity: <%= item.quantity %></p>
+                                    <% if (item.discount && orderType === "collection") { %>
+                                        <p class="quantity">Discount: £ <%= item.discount %></p>
+                                        <p class="quantity">
+                                            Price: £ <%= Number(item.totalSum - (item.discount || 0)).toFixed(2) %>
+                                            <span style="color:rgb(153, 27, 27); text-decoration-line: line-through;">
+                                                <%= item.totalSum %>
+                                            </span> x <%= item.quantity %>
+                                        </p>
+                                    <% } else { %>
+                                        <p class="quantity">Price: £ <%= item.totalSum %></p>
+                                    <% } %>
+                                </div>
+                                <img src="<%= item.img %>" alt="<%= item.name %> image">
+                            </div>
+                        <% }) %>
+                    </p>
+
+                    <p class="info-message">We appreciate your business and are committed to providing you with the best service possible.</p>
+                    <p>Thanks,<br>The Hot House Team</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <p>© All copyrights reserved to @Hot House Northwood.</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
