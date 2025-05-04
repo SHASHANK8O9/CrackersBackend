@@ -12,7 +12,7 @@ export const createProduct = asyncErrorHandler(async (req, res) => {
     banner,
     slug,
     stockStatus,
-    categories,
+    category,
     quantity,
     description,
   } = req.body;
@@ -24,7 +24,7 @@ export const createProduct = asyncErrorHandler(async (req, res) => {
     banner,
     slug,
     stockStatus,
-    categories,
+    categories: category,
     quantity,
     description,
   });
