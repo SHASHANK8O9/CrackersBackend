@@ -24,7 +24,7 @@ app.use(
     process.env.NODE_ENV === "production"
       ? {
           origin: [
-            "http://localhost:4112",
+            "https://nammapettikadai.in/",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5010",
@@ -38,7 +38,7 @@ app.use(
         }
       : {
           origin: [
-            "http://localhost:4112",
+            "https://nammapettikadai.in/",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5174",
@@ -78,7 +78,7 @@ app.use(morgan("dev"));
 app.all(["/", "/api", "/api/v1"], (req, res, next) => {
   return res.status(200).json({
     success: true,
-    message: "Welcome to Hot House",
+    message: "Welcome to Cracker Site !!",
   });
 });
 
