@@ -24,7 +24,7 @@ app.use(
     process.env.NODE_ENV === "production"
       ? {
           origin: [
-            "https://nammapettikadai.in/",
+            "https://nammapettikadai.in",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5010",
@@ -38,7 +38,7 @@ app.use(
         }
       : {
           origin: [
-            "https://nammapettikadai.in/",
+            "https://nammapettikadai.in",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5174",
