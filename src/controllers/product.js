@@ -43,37 +43,106 @@ export const createProduct = asyncErrorHandler(async (req, res) => {
 // @route   GET /api/products
 // @access  Public
 
+// Assuming these are imported or available in the scope:
+// const mongoose = require('mongoose'); // or import mongoose from 'mongoose';
+// const ProductModel = require('./models/ProductModel'); // Or your actual path
+// const CategoryModel = require('./models/CategoryModel'); // Or your actual path, corrected typo
+// const asyncErrorHandler = require('./utils/asyncErrorHandler'); // Or your actual path
+// const chalk = require('chalk'); // or import chalk from 'chalk';
+
 export const getProducts = asyncErrorHandler(async (req, res) => {
-  const { category, cat, page = 1, limit = 10 } = req.query;
+  // 1. Extract Query Parameters and Set Defaults
+  const {
+    category,
+    cat,
+    page: pageQuery = 1,
+    limit: limitQuery = 10,
+  } = req.query;
 
   const filter = {};
+
+  // 2. Construct Filter Object
+  // Handle 'category' (direct ObjectId)
   if (category) {
-    if (category == "ALL") filter.categories = {};
-    else filter.categories = new mongoose.Types.ObjectId(category);
+    if (category !== "ALL") {
+      // Ensure 'category' is a valid ObjectId string before attempting to convert
+      if (mongoose.Types.ObjectId.isValid(category)) {
+        filter.categories = new mongoose.Types.ObjectId(category);
+      } else {
+        // Handle invalid ObjectId for 'category' - perhaps return an error or an empty set
+        // For now, we'll log and proceed, which might lead to no results for this specific filter
+        console.warn(
+          chalk.yellow(
+            `Warning: Invalid ObjectId provided for 'category': ${category}`
+          )
+        );
+        // To ensure no results for an invalid category ID, you could do:
+        // filter.categories = new mongoose.Types.ObjectId('000000000000000000000000');
+      }
+    }
+    // If category === "ALL", no specific category filter is applied based on 'category' param.
   }
+
+  // Handle 'cat' (search by category title, case-insensitive)
+  // This will override the 'category' filter if 'cat' is also provided and a match is found.
   if (cat) {
-    const categoryId = await catgeory.findOne({ title: cat });
-    filter.categories = new mongoose.Types.ObjectId(categoryId._id);
-    console.log(chalk.bgBlueBright("cat", JSON.stringify(filter)));
+    try {
+      const categoryDoc = await catgeory.findOne({
+        _id: cat,
+      });
+      if (categoryDoc) {
+        filter.categories = new mongoose.Types.ObjectId(categoryDoc._id);
+      } else {
+        // If 'cat' is specified but no category is found,
+        // ensure no products are returned for this specific 'cat' criterion.
+        // We can do this by setting 'categories' to a non-existent ObjectId.
+        filter.categories = new mongoose.Types.ObjectId(
+          "000000000000000000000000"
+        ); // Dummy non-existent ID
+      }
+      console.log(
+        chalk.bgBlueBright(
+          "Filter after 'cat' processing:",
+          JSON.stringify(filter)
+        )
+      );
+    } catch (error) {
+      // Handle potential errors during CategoryModel.findOne, e.g., database issues
+      console.error(chalk.red("Error finding category by title:", error));
+      // Depending on desired behavior, you might want to return an error response here
+      // For now, we'll let it proceed, which might mean 'filter.categories' isn't set by 'cat'
+    }
   }
-  const pageNum = parseInt(page, 10);
-  const limitNum = parseInt(limit, 10);
+
+  // 3. Pagination Logic
+  const pageNum = parseInt(pageQuery, 10) || 1; // Default to 1 if parsing fails or not provided
+  const limitNum = parseInt(limitQuery, 10) || 10; // Default to 10
   const skip = (pageNum - 1) * limitNum;
-  console.log("filt", filter);
+
+  console.log("Final filter being applied:", filter);
+
+  // 4. Fetch Data from Database
   const [products, total] = await Promise.all([
-    ProductModel.find(filter).populate("categories").skip(skip).limit(limitNum),
+    ProductModel.find(filter)
+      .populate("categories") // Assuming 'categories' is a ref field in ProductModel
+      .skip(skip)
+      .limit(limitNum)
+      .lean(), // Using .lean() for better performance if you don't need Mongoose documents
     ProductModel.countDocuments(filter),
   ]);
 
+  // 5. Send Response
   res.status(200).json({
     status: true,
-    message: "Product Fetched Successfully !!",
+    message: "Products Fetched Successfully !!",
     data: products,
     pagination: {
       total,
       page: pageNum,
       limit: limitNum,
       totalPages: Math.ceil(total / limitNum),
+      hasNextPage: skip + products.length < total,
+      hasPrevPage: pageNum > 1,
     },
   });
 });
@@ -86,6 +155,29 @@ export const getProductBySlug = asyncErrorHandler(async (req, res) => {
   const product = await ProductModel.findOne({ slug }).populate("categories");
 
   if (!product) {
+    return res.status(404).json({
+      status: true,
+      message: "Product Not Found !!",
+    });
+  }
+
+  res.status(200).json({
+    status: true,
+    message: "Product Fetched Successfully ",
+    data: product,
+  });
+});
+export const getProductById = asyncErrorHandler(async (req, res) => {
+  const { id } = req.params;
+  const product = await ProductModel.findOne({ _id: id }).populate(
+    "categories"
+  );
+
+  if (!product) {
+    return res.status(404).json({
+      status: true,
+      message: "Product Not Found !!",
+    });
   }
 
   res.status(200).json({

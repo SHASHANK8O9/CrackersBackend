@@ -9,6 +9,7 @@ import { CustomError } from "./src/utils/errors/customError.js";
 import morgan from "morgan";
 import { ProductRoutes } from "./src/routes/productRoutes.js";
 import { CategoryRoutes } from "./src/routes/categoryRoutes.js";
+import { orderRoutes } from "./src/routes/order.js";
 
 // -------------------------------------------------------------------------------------------------------------
 dotenv.config();
@@ -86,6 +87,8 @@ app.all(["/", "/api", "/api/v1"], (req, res, next) => {
 
 app.use("/api/v1/product", ProductRoutes);
 app.use("/api/v1/category", CategoryRoutes);
+app.use("/api/v1/categories", CategoryRoutes);
+app.use("/api/v1/orders", orderRoutes);
 
 // -------------------------------------------------------------------------------------------------------------
 

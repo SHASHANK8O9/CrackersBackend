@@ -4,217 +4,232 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Created Successfully</title>
-
+    <title>Enquiry Received - Nammapettikadai</title>
     <style type="text/css">
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #f4f4f7;
+            color: #333333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td {
-            padding: 1rem 2rem;
-            vertical-align: top;
-            width: 100%;
-        }
-
-        .container {
-            width: 100%;
-            margin: 0 auto;
-            text-align: left;
+        .email-container {
+            max-width: 580px;
+            margin: 20px auto;
             background-color: #ffffff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
             overflow: hidden;
         }
 
-        .header-logo {
-            background-color: rgb(153, 27, 27);
+        .header {
+            background-color: #2980b9;
+            color: #ffffff;
+            padding: 25px 20px;
             text-align: center;
-            color: white;
-            padding: 20px;
-            border-radius: 12px 12px 0 0;
         }
 
-        .header-logo h2 {
+        .header h1 {
             margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .header .store-name {
+            font-size: 18px;
+            margin-top: 4px;
+            opacity: 0.9;
         }
 
         .content {
-            padding: 40px;
-            background-color: #f8f8f8;
+            padding: 25px 30px;
+            line-height: 1.6;
         }
 
-        h1 {
-            margin: 1rem 0;
-            color: #333333;
-        }
-
-        strong {
-            font-size: 110%;
-            color: #555555;
-        }
-
-        .otp {
-            font-size: 24px;
-            color: #007bff;
-            margin: 0;
-        }
-
-        .info-message {
-            color: #555555;
-            font-size: 17px;
-        }
-
-        .footer {
-            padding: 10px;
-            color: #999999;
-            text-align: center;
-            background-color: #f8f8f8;
-            border-radius: 0 0 12px 12px;
-            font-size: 18px;
-        }
-
-        .item {
-            display: flex;
-            justify-content: space-between;
+        .content h2 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-top: 0;
             margin-bottom: 15px;
-            font-size: 17px;
         }
 
-        .item img {
-            margin-left: 20px;
-            width: 60px;
-            height: 60px;
+        .content p {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .details-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .details-section p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .details-section strong {
+            color: #2c3e50;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        .items-list {
+            margin-top: 10px;
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        .items-list li {
+            margin-bottom: 15px;
+            /* Increased margin */
+            padding: 12px;
+            /* Increased padding */
+            background-color: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            display: flex;
+            /* For image and details side-by-side */
+            align-items: flex-start;
+            /* Align items to the top */
+        }
+
+        .item-image-container {
+            margin-right: 12px;
+            /* Space between image and text */
+            flex-shrink: 0;
+            /* Prevent image from shrinking */
+        }
+
+        .item-image-container img {
+            width: 70px;
+            /* Adjust as needed */
+            height: 70px;
+            /* Adjust as needed */
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
 
-        .item-details {
+        .item-details-container {
             flex-grow: 1;
         }
 
-        .item-details p {
-            margin: 0;
+        .item-property {
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 3px;
         }
 
-        .item-details .quantity {
-            color: green;
+        .item-name-title {
+            /* For a more prominent item name if available */
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #888888;
+            background-color: #f0f0f0;
+        }
+
+        .footer a {
+            color: #2980b9;
+            text-decoration: none;
         }
     </style>
 </head>
 
 <body>
+    <div class="email-container">
+        <div class="header">
+            <div class="store-name">Nammapettikadai</div>
+            <h1>Enquiry Received</h1>
+        </div>
 
-    <table class="container">
-        <tr>
-            <td class="header-logo">
-                <h2>Hot House Northwood Pizza</h2>
-            </td>
-        </tr>
-        <tr>
-            <td class="content">
-                <div style="color: #333333; text-align: left;">
-                    <h2 style="color:green">Hi! <%= name %>, Your Order is Accepted.</h2>
-                    <p class="info-message">
-                        Thank you for placing an order with Hot House Northwood Pizza. We are pleased to confirm that we have received your order number
-                        <strong style="color:rgb(153, 27, 27)"><%= orderId %></strong> with a total amount of 
-                        <strong style="color:rgb(153, 27, 27)">£ <%= amount %></strong>, placed for 
-                        <strong style="color:rgb(153, 27, 27)"><%= date %></strong>.
-                    </p>
-                    <p class="info-message">
-                        Order Type: 
-                        <strong style="color:rgb(153, 27, 27)">
-                            <%= orderType.charAt(0).toUpperCase() + orderType.slice(1).toLowerCase() %>
-                        </strong>
-                    </p>
-                    <p class="info-message">Payment Mode: <strong style="color:green"><%= paymentType %></strong></p>
+        <div class="content">
+            <h2>Hi <%= enquiry.fullName %>,</h2>
+            <p>Thank you for your enquiry submitted to Nammapettikadai. We have received the following details and will
+                get back to you shortly.</p>
 
-                    <!-- Address Section -->
-                    <p class="info-message">
-                        Address: 
-                        <% if (address) { %>
-                            <strong><%= address %></strong>
-                        <% } else { %>
-                            <strong style="color:gray;">No Address – Collection</strong>
-                        <% } %>
-                    </p>
+            <p>Enquiry Reference: <strong>#<%= getShortId(enquiry._id) %></strong></p>
+            <% if (enquiry.createdAt) { %>
+                <p>Date of Enquiry: <strong>
+                        <%= formatDate(enquiry.createdAt) %>
+                    </strong></p>
+                <% } %>
 
-                    <!-- Mobile Number Section -->
-                    <p class="info-message">
-                        Mobile Number: 
-                        <strong><%= mobileNumber %></strong>
-                    </p>
+                    <div class="details-section">
+                        <h3>Your Details:</h3>
+                        <p><strong>Full Name:</strong>
+                            <%= enquiry.fullName %>
+                        </p>
+                        <p><strong>Email:</strong>
+                            <%= enquiry.email %>
+                        </p>
+                        <p><strong>Phone:</strong>
+                            <%= enquiry.phone %>
+                        </p>
+                        <p><strong>Address:</strong>
+                            <%= enquiry.address %>
+                        </p>
 
-                    <!-- Comment Section -->
-                    <p class="info-message">
-                        Comment: 
-                        <% if (comment) { %>
-                            <strong><%= comment %></strong>
-                        <% } else { %>
-                            <strong style="color:gray;">No Comment</strong>
-                        <% } %>
-                    </p>
+                        <% if (enquiry.orderNotes) { %>
+                            <p><strong>Notes/Message:</strong></p>
+                            <p style="white-space: pre-wrap;"><%- enquiry.orderNotes %></p>
+                            <% } %>
+                    </div>
 
-                    <!-- Ordered Items Section -->
-                    <p class="info-message">Ordered Items:</p>
-                    <p class="info-message">
-                        <% items.forEach(function(item) { 
-                            const size = String(item?.size).includes("-");
-                            const price = String(item?.size).includes("-")
-                                ? item?.size?.split("-")
-                                : item?.size;  
-                        %> 
-                            <div class="item">
-                                <div class="item-details">
-                                    <strong style="color:green"><%= item.name %></strong>
-                                    <% if (item?.allToppings){ %>
-                                        <strong style="font-size: 15px; color:rgb(153, 27, 27)">Customized</strong>
-                                    <% } %>
-                                    <% if (size) { %>
-                                        <p class="quantity">Size/Type: <%= price[0] %></p>
-                                    <% } else if (item?.dealsData) { %>
-                                        <p class="quantity">Size: <%= item?.size %></p>
-                                    <% } else if (item?.allToppings?.size?.name) { %>
-                                        <p class="quantity">Size: <%= item?.allToppings?.size?.name %></p>
-                                    <% } %>
-                                    <p class="quantity">Quantity: <%= item.quantity %></p>
-                                    <% if (item.discount && orderType === "collection") { %>
-                                        <p class="quantity">Discount: £ <%= item.discount %></p>
-                                        <p class="quantity">
-                                            Price: £ <%= Number(item.totalSum - (item.discount || 0)).toFixed(2) %>
-                                            <span style="color:rgb(153, 27, 27); text-decoration-line: line-through;">
-                                                <%= item.totalSum %>
-                                            </span> x <%= item.quantity %>
-                                        </p>
-                                    <% } else { %>
-                                        <p class="quantity">Price: £ <%= item.totalSum %></p>
-                                    <% } %>
-                                </div>
-                                <img src="<%= item.img %>" alt="<%= item.name %> image">
-                            </div>
-                        <% }) %>
-                    </p>
+                    <% if (enquiry.orderItems && enquiry.orderItems.length> 0) { %>
+                        <h3>Items of Interest:</h3>
+                        <ul class="items-list">
+                            <% enquiry.orderItems.forEach(function(item) { %>
+                                <li>
+                                    <% if (item.image && typeof item.image==='string' && item.image.trim() !=='' ) { %>
+                                        <div class="item-image-container">
+                                            <img src="<%= item.image %>" alt="<%= item.name || 'Item Image' %>">
+                                        </div>
+                                        <% } %>
+                                            <div class="item-details-container">
+                                                <% Object.keys(item).forEach(function(key) { %>
+                                                    <% if (key !=='image' && item[key] !==null && item[key] !==undefined &&
+                                                        String(item[key]).trim() !=='' ) { %>
+                                                        <span class="item-property">
+                                                            <strong>
+                                                                <%= key.charAt(0).toUpperCase() + key.slice(1) %>:
+                                                            </strong>
+                                                            <%= item[key] %>
+                                                        </span>
+                                                        <% } %>
+                                                            <% }); %>
+                                            </div>
+                                </li>
+                                <% }) %>
+                        </ul> <% } %>
 
-                    <p class="info-message">We appreciate your business and are committed to providing you with the best service possible.</p>
-                    <p>Thanks,<br>The Hot House Team</p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="footer">
-                <p>© All copyrights reserved to @Hot House Northwood.</p>
-            </td>
-        </tr>
-    </table>
+                            <p>Our team will review your enquiry. If you have any urgent questions in the meantime,
+                                please feel free to call us.</p>
+                            <p>Sincerely,<br><strong>The Nammapettikadai Team</strong></p>
+        </div>
 
+        <div class="footer">
+            <p>© <%= new Date().getFullYear() %> Nammapettikadai. All rights reserved.</p>
+            <p><a href="https://www.nammapettikadai.in">Visit our website</a> | <a href="tel:123456708">Contact Us</a>
+            </p>
+        </div>
+    </div>
 </body>
 
 </html>
