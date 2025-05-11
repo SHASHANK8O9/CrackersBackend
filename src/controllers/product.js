@@ -1,3 +1,5 @@
+import chalk from "chalk";
+import catgeory from "../models/catgeory.js";
 import { ProductModel } from "../models/product.js";
 import { asyncErrorHandler } from "../utils/errors/asyncErrorHandler.js";
 import mongoose from "mongoose";
@@ -42,17 +44,22 @@ export const createProduct = asyncErrorHandler(async (req, res) => {
 // @access  Public
 
 export const getProducts = asyncErrorHandler(async (req, res) => {
-  const { category, page = 1, limit = 10 } = req.query;
+  const { category, cat, page = 1, limit = 10 } = req.query;
 
   const filter = {};
   if (category) {
-    filter.categories = new mongoose.Types.ObjectId(category);
+    if (category == "ALL") filter.categories = {};
+    else filter.categories = new mongoose.Types.ObjectId(category);
   }
-
+  if (cat) {
+    const categoryId = await catgeory.findOne({ title: cat });
+    filter.categories = new mongoose.Types.ObjectId(categoryId._id);
+    console.log(chalk.bgBlueBright("cat", JSON.stringify(filter)));
+  }
   const pageNum = parseInt(page, 10);
   const limitNum = parseInt(limit, 10);
   const skip = (pageNum - 1) * limitNum;
-
+  console.log("filt", filter);
   const [products, total] = await Promise.all([
     ProductModel.find(filter).populate("categories").skip(skip).limit(limitNum),
     ProductModel.countDocuments(filter),

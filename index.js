@@ -25,6 +25,7 @@ app.use(
       ? {
           origin: [
             "https://nammapettikadai.in",
+            "https://www.nammapettikadai.in",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5010",
@@ -39,6 +40,7 @@ app.use(
       : {
           origin: [
             "https://nammapettikadai.in",
+            "https://www.nammapettikadai.in",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5174",
