@@ -35,11 +35,13 @@ app.use(
             "http://localhost:5174",
             "http://localhost:5175",
             "http://localhost:4114",
+            "https://cracker-frontend-n111.vercel.app",
           ],
           credentials: true,
         }
       : {
           origin: [
+            "https://cracker-frontend-n111.vercel.app",
             "https://nammapettikadai.in",
             "https://www.nammapettikadai.in",
             "http://localhost:3000",
