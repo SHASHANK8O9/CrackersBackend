@@ -27,6 +27,7 @@ app.use(
           origin: [
             "https://nammapettikadai.in",
             "https://www.nammapettikadai.in",
+            "https://crackers-oiso.vercel.app",
             "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:5010",
