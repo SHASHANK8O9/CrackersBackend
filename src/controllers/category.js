@@ -89,6 +89,6 @@ export const deleteCategory = asyncErrorHandler(async (req, res) => {
   }
 
   res
-    .status(404)
+    .status(200)
     .json({ status: true, message: "Category Deleted Successfully !!" });
 });
